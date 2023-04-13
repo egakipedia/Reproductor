@@ -34,7 +34,8 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:background="@drawable/reproducir"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            android:onClick="PlayPause" />
 
         <Button
             android:id="@+id/btn_stop"
