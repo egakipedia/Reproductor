@@ -45,4 +45,109 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show();
         }
     }
+
+    //Método botón Stop
+    public void Stop(View view){
+        if(vectormp[posicion] != null){
+            vectormp[posicion].stop();
+
+            vectormp[0] = MediaPlayer.create(this, R.raw.race);
+            vectormp[1] = MediaPlayer.create(this, R.raw.sound);
+            vectormp[2] = MediaPlayer.create(this, R.raw.tea);
+            posicion = 0;
+            play_pause.setBackgroundResource(R.drawable.reproducir);
+            iv.setImageResource(R.drawable.portada1);
+            Toast.makeText(this, "Stop", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    //Método repetir pista
+    public void Repetir(View view){
+        if(repetir == 1){
+            btn_repetir.setBackgroundResource(R.drawable.no_repetir);
+            Toast.makeText(this, "No repetir", Toast.LENGTH_SHORT).show();
+            vectormp[posicion].setLooping(false);
+            repetir = 2;
+        } else {
+            btn_repetir.setBackgroundResource(R.drawable.repetir);
+            Toast.makeText(this, "Repetir", Toast.LENGTH_SHORT).show();
+            vectormp[posicion].setLooping(true);
+            repetir = 1;
+        }
+    }
+
+    // Método para saltar la siguiente canción
+    public void Siguiente(View view){
+        if(posicion < vectormp.length -1){
+
+            if(vectormp[posicion].isPlaying()){
+                vectormp[posicion].stop();
+                posicion++;
+                vectormp[posicion].start();
+
+                if(posicion == 0){
+                    iv.setImageResource(R.drawable.portada1);
+                }else if(posicion == 1){
+                    iv.setImageResource(R.drawable.portada2);
+                }else if(posicion == 2){
+                    iv.setImageResource(R.drawable.portada3);
+                }
+            }else{
+                posicion++;
+
+                if(posicion == 0){
+                    iv.setImageResource(R.drawable.portada1);
+                }else if(posicion == 1){
+                    iv.setImageResource(R.drawable.portada2);
+                }else if(posicion == 2){
+                    iv.setImageResource(R.drawable.portada3);
+                }
+
+
+
+            }
+        }else{
+            Toast.makeText(this, "No hay canciones", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Método para regresar de canción
+    public void Anterior(View view){
+        if(posicion >= 1){
+
+            if(vectormp[posicion].isPlaying()){
+                vectormp[posicion].stop();
+                vectormp[0] = MediaPlayer.create(this, R.raw.race);
+                vectormp[1] = MediaPlayer.create(this, R.raw.sound);
+                vectormp[2] = MediaPlayer.create(this, R.raw.tea);
+                posicion--;
+
+                if(posicion == 0){
+                    iv.setImageResource(R.drawable.portada1);
+                }else if(posicion == 1){
+                    iv.setImageResource(R.drawable.portada2);
+                }else if(posicion == 2){
+                    iv.setImageResource(R.drawable.portada3);
+                }
+
+                vectormp[posicion].start();
+
+
+            }else{
+
+                posicion--;
+                if(posicion == 0){
+                    iv.setImageResource(R.drawable.portada1);
+                }else if(posicion == 1){
+                    iv.setImageResource(R.drawable.portada2);
+                }else if(posicion == 2){
+                    iv.setImageResource(R.drawable.portada3);
+                }
+            }
+
+        }else{
+            Toast.makeText(this, "No hay canciones", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
